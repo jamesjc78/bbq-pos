@@ -69,3 +69,7 @@ function editItem(index){
     renderItemList();
   }
 }
+
+function goHome() {
+  window.location.href = "index.html"; // Redirects to the POS home screen
+}
