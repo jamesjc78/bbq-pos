@@ -111,21 +111,55 @@ function resetDay(){
   }
 }
 
-// ====== CSV EXPORT ======
+// ====== CSV EXPORT WITH DETAILED SUMMARY ======
 function downloadCSV(){
-  if(sales.length==0){ alert("No sales today!"); return;}
-  let csv="Item,Price\n";
-  sales.forEach(s=>{
-    csv+=`${s.name},${s.price}\n`;
+  if(sales.length == 0){ 
+    alert("No sales today!"); 
+    return;
+  }
+
+  // Count sales per item
+  let itemSummary = {};
+  let grandTotal = 0;
+  let totalItemsSold = 0;
+
+  sales.forEach(s => {
+    grandTotal += s.price;
+    totalItemsSold++;
+    if(itemSummary[s.name]){
+      itemSummary[s.name].quantity++;
+      itemSummary[s.name].total += s.price;
+    } else {
+      itemSummary[s.name] = {
+        price: s.price,
+        quantity: 1,
+        total: s.price
+      };
+    }
   });
-  const blob = new Blob([csv],{type:"text/csv"});
+
+  // CSV header
+  let csv = "Item,Price per Item,Quantity Sold,Total Revenue\n";
+
+  // Add each item row
+  for(let item in itemSummary){
+    csv += `${item},${itemSummary[item].price},${itemSummary[item].quantity},${itemSummary[item].total}\n`;
+  }
+
+  // Add detailed summary
+  csv += `\nTotal Items Sold,,${totalItemsSold}\n`;
+  csv += `Grand Total,₱,,${grandTotal}\n`;
+
+  // Download CSV
+  const blob = new Blob([csv], {type:"text/csv"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href=url;
-  a.download="AteTerryBBQ_sales.csv";
+  a.href = url;
+  a.download = "AteTerryBBQ_sales.csv";
   a.click();
   URL.revokeObjectURL(url);
 }
 
 // ====== INITIAL RENDER ======
 renderMenu();
+
