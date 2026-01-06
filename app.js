@@ -38,15 +38,43 @@ function renderMenu(){
 }
 
 // ====== ADD ITEM TO ORDER ======
-function addItem(name,index){
-  if(items[index].stock <=0){
+function addItem(name, index){
+  const maxStock = items[index].stock;
+  if(maxStock <= 0){
     alert("Out of stock!");
     return;
   }
-  order.push({name, price: items[index].price});
-  total += items[index].price;
+
+  // Ask for quantity
+  let qty = parseInt(prompt(`Enter quantity for ${name} (Max ${maxStock}):`, 1));
+  if(isNaN(qty) || qty <= 0){
+    alert("Invalid quantity!");
+    return;
+  }
+
+  if(qty > maxStock){
+    alert(`Only ${maxStock} ${name}(s) left in stock.`);
+    return;
+  }
+
+  // Check if item already in order
+  const existingIndex = order.findIndex(o => o.name === name);
+  if(existingIndex !== -1){
+    order[existingIndex].quantity += qty;
+    order[existingIndex].price = items[index].price * order[existingIndex].quantity;
+  } else {
+    order.push({
+      name: name,
+      price: items[index].price * qty,
+      quantity: qty,
+      unitPrice: items[index].price
+    });
+  }
+
+  total = order.reduce((sum, o) => sum + o.price, 0);
   renderOrder();
 }
+
 
 // ====== RENDER ORDER ======
 function renderOrder(){
@@ -55,19 +83,52 @@ function renderOrder(){
 
   order.forEach((item, index) => {
     const li = document.createElement("li");
-    li.innerText = `${item.name} - ₱${item.price} `;
 
-    // Create remove button
+    // Show name, unit price, and quantity
+    li.innerText = `${item.name} - ₱${item.unitPrice} x ${item.quantity} = ₱${item.price} `;
+
+    // Edit quantity button
+    const editBtn = document.createElement("button");
+    editBtn.innerText = "✏️";
+    editBtn.style.marginLeft = "10px";
+    editBtn.onclick = () => editQuantity(index);
+
+    // Remove button
     const removeBtn = document.createElement("button");
     removeBtn.innerText = "❌";
-    removeBtn.style.marginLeft = "10px";
+    removeBtn.style.marginLeft = "5px";
     removeBtn.onclick = () => removeOrderItem(index);
 
+    li.appendChild(editBtn);
     li.appendChild(removeBtn);
     list.appendChild(li);
   });
 
   document.getElementById("total").innerText = total;
+}
+
+// ====== EDIT QUANTITY ======
+function editQuantity(index){
+  const item = order[index];
+  const maxStock = items.find(i => i.name === item.name).stock + item.quantity; // add back current quantity
+
+  let qty = parseInt(prompt(`Edit quantity for ${item.name} (Max ${maxStock}):`, item.quantity));
+  if(isNaN(qty) || qty <= 0){
+    alert("Invalid quantity!");
+    return;
+  }
+
+  if(qty > maxStock){
+    alert(`Only ${maxStock} ${item.name}(s) available.`);
+    return;
+  }
+
+  // Update quantity and price
+  item.quantity = qty;
+  item.price = item.unitPrice * qty;
+
+  total = order.reduce((sum, o) => sum + o.price, 0);
+  renderOrder();
 }
 
 // ====== REMOVE ORDER ======
@@ -184,6 +245,7 @@ function downloadCSV(){
 
 // ====== INITIAL RENDER ======
 renderMenu();
+
 
 
 
