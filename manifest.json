@@ -1,10 +1,11 @@
 {
-    "name": "BBQ POS",
-    "short_name": "BBQ POS",
+    "name": "Ate Terry's BBQ",
+    "short_name": "Ate Terry's",
     "start_url": "index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#ff5722",
     "icons": []
   }
+
   
