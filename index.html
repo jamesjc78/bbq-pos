@@ -13,22 +13,23 @@
   <div id="items" class="menu"></div>
 
   <h2>Order</h2>
+ <div id="orderSection">
   <ul id="orderList"></ul>
-
-  <h2>Total: ₱<span id="total">0</span></h2>
-
-  <input type="number" id="cash" placeholder="Cash Received">
-  <button onclick="checkout()">Checkout</button>
-  <h2 id="change"></h2>
-
-  <hr>
-  <h2>📊 Today's Sales</h2>
-  <p>Total Sales: ₱<span id="dailySales">0</span></p>
-
-  <button onclick="downloadCSV()">Download CSV</button>
-  <button onclick="resetDay()">Daily Reset</button>
+  
+  <div id="totalDiv">
+    Total: ₱<span id="total">0</span>
+  </div>
+  
+  <input type="number" id="cash" placeholder="Cash">
+  <button id="checkoutBtn" onclick="checkout()">Checkout</button>
+  <div id="change"></div>
+  
+  <button id="resetBtn" onclick="resetDay()">Daily Reset</button>
+  <button id="downloadBtn" onclick="downloadCSV()">Download CSV</button>
+</div>
   <a href="admin.html">Admin Panel</a>
 
   <script src="app.js"></script>
 </body>
 </html>
+
