@@ -52,12 +52,34 @@ function addItem(name,index){
 function renderOrder(){
   const list = document.getElementById("orderList");
   list.innerHTML = "";
-  order.forEach(item=>{
+
+  order.forEach((item, index) => {
     const li = document.createElement("li");
-    li.innerText = `${item.name} - ₱${item.price}`;
+    li.innerText = `${item.name} - ₱${item.price} `;
+
+    // Create remove button
+    const removeBtn = document.createElement("button");
+    removeBtn.innerText = "❌";
+    removeBtn.style.marginLeft = "10px";
+    removeBtn.onclick = () => removeOrderItem(index);
+
+    li.appendChild(removeBtn);
     list.appendChild(li);
   });
+
   document.getElementById("total").innerText = total;
+}
+
+// ====== REMOVE ORDER ======
+function removeOrderItem(index){
+  // Subtract the price from total
+  total -= order[index].price;
+
+  // Remove the item from the order array
+  order.splice(index, 1);
+
+  // Re-render the order list
+  renderOrder();
 }
 
 // ====== CHECKOUT ======
@@ -162,4 +184,5 @@ function downloadCSV(){
 
 // ====== INITIAL RENDER ======
 renderMenu();
+
 
