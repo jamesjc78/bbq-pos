@@ -1,3 +1,5 @@
+// ====== Ate Terry's BBQ POS ======
+
 // ====== INITIALIZATION ======
 let items = JSON.parse(localStorage.getItem("items")) || [
   {name:"BBQ Stick", price:30, stock:100},
@@ -9,12 +11,18 @@ let items = JSON.parse(localStorage.getItem("items")) || [
 let order = [];
 let total = 0;
 
+// Initialize sales and dailySales robustly
 let sales = JSON.parse(localStorage.getItem("sales")) || [];
-let dailySales = parseInt(localStorage.getItem("dailySales")) || 0;
+
+let dailySales = localStorage.getItem("dailySales");
+if (!dailySales || isNaN(parseInt(dailySales))) {
+    dailySales = 0;
+    localStorage.setItem("dailySales", dailySales);
+} else {
+    dailySales = parseInt(dailySales);
+}
 
 document.getElementById("dailySales").innerText = dailySales;
-
-renderMenu();
 
 // ====== RENDER MENU ======
 function renderMenu(){
@@ -55,7 +63,7 @@ function renderOrder(){
 // ====== CHECKOUT ======
 function checkout(){
   const cash = parseInt(document.getElementById("cash").value);
-  if(isNaN(cash) || cash<total){
+  if(isNaN(cash) || cash < total){
     alert("Insufficient cash!");
     return;
   }
@@ -66,28 +74,34 @@ function checkout(){
   // reduce stock
   order.forEach(o=>{
     const itemIndex = items.findIndex(i=>i.name===o.name);
-    items[itemIndex].stock--;
+    if(itemIndex !== -1){
+        items[itemIndex].stock--;
+    }
   });
 
   // log sales
   sales.push(...order);
-  dailySales += total;
 
-  localStorage.setItem("sales", JSON.stringify(sales));
+  // update daily sales
+  dailySales += total;
   localStorage.setItem("dailySales", dailySales);
+  document.getElementById("dailySales").innerText = dailySales;
+
+  // save sales and items
+  localStorage.setItem("sales", JSON.stringify(sales));
   localStorage.setItem("items", JSON.stringify(items));
 
   // reset order
   order = [];
-  total=0;
+  total = 0;
   renderOrder();
   renderMenu();
-  document.getElementById("cash").value="";
+  document.getElementById("cash").value = "";
 }
 
 // ====== DAILY RESET ======
 function resetDay(){
-  if(confirm("Reset daily sales?")){
+  if(confirm("Reset daily sales for Ate Terry's BBQ?")){
     sales=[];
     dailySales=0;
     localStorage.setItem("sales", JSON.stringify(sales));
@@ -108,7 +122,10 @@ function downloadCSV(){
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href=url;
-  a.download="sales.csv";
+  a.download="AteTerryBBQ_sales.csv";
   a.click();
   URL.revokeObjectURL(url);
 }
+
+// ====== INITIAL RENDER ======
+renderMenu();
