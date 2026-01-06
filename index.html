@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BBQ POS</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+<h1>🔥 BBQ POS</h1>
+
+<div class="menu">
+  <button onclick="addItem('BBQ Stick', 30)">BBQ Stick ₱30</button>
+  <button onclick="addItem('Isaw', 15)">Isaw ₱15</button>
+  <button onclick="addItem('Rice', 20)">Rice ₱20</button>
+  <button onclick="addItem('Softdrink', 25)">Softdrink ₱25</button>
+</div>
+
+<h2>Order</h2>
+<ul id="orderList"></ul>
+
+<h2>Total: ₱<span id="total">0</span></h2>
+
+<input type="number" id="cash" placeholder="Cash Received">
+<button onclick="checkout()">Checkout</button>
+
+<h2 id="change"></h2>
+
+<button class="clear" onclick="clearOrder()">Clear Order</button>
+
+<hr>
+
+<h2>📊 Today's Sales</h2>
+<p>Total Sales: ₱<span id="dailySales">0</span></p>
+
+<script src="app.js"></script>
+</body>
+</html>
