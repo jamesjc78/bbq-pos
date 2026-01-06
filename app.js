@@ -182,7 +182,12 @@ function downloadCSV(){
   URL.revokeObjectURL(url);
 }
 
+function goHome() {
+  window.location.href = "index.html"; // Redirects to the POS home screen
+}
+
 // ====== INITIAL RENDER ======
 renderMenu();
+
 
 
