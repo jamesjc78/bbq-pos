@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Ate Terry's BBQ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🔧 Admin Panel</h1>
+
+  <div id="loginDiv">
+    <input type="password" id="adminPassword" placeholder="Enter admin password">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div id="adminContent" style="display:none;">
+    <h2>Manage Items</h2>
+    <input type="text" id="itemName" placeholder="Item Name">
+    <input type="number" id="itemPrice" placeholder="Price">
+    <input type="number" id="itemStock" placeholder="Stock">
+    <button onclick="addItemAdmin()">Add Item</button>
+
+    <ul id="itemList"></ul>
+
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
