@@ -1,37 +1,162 @@
+/* ====== Ate Terry's BBQ POS STYLING ====== */
+
+/* General body */
 body {
-  font-family: Arial, sans-serif;
-  padding: 15px;
-  background: #fff3e0;
+    font-family: Arial, sans-serif;
+    background-color: #fff5ee; /* soft warm BBQ theme */
+    color: #333;
+    margin: 0;
+    padding: 20px;
 }
 
-h1, h2 {
-  text-align: center;
+/* Header */
+h1 {
+    text-align: center;
+    color: #d84315;
+    margin-bottom: 20px;
 }
 
-.menu button {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0;
-  font-size: 18px;
+/* Menu buttons */
+#items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
+#items button {
+    background-color: #ff7043;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-input, button {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
+#items button:hover {
+    background-color: #ff5722;
 }
 
-button {
-  font-size: 16px;
+/* Order list */
+#orderList {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-a {
-  display: block;
-  text-align: center;
-  margin-top: 20px;
+#orderList li {
+    background-color: #ffe0b2;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Buttons inside order list (edit/remove) */
+#orderList button {
+    background-color: #d84315;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 5px;
+    transition: 0.2s;
+}
+
+#orderList button:hover {
+    background-color: #bf360c;
+}
+
+/* Total and cash input */
+#totalDiv {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#cash {
+    padding: 8px;
+    width: 150px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Checkout and reset buttons */
+button#checkoutBtn, button#resetBtn, button#downloadBtn {
+    background-color: #ff7043;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+    transition: 0.2s;
+}
+
+button#checkoutBtn:hover, button#resetBtn:hover, button#downloadBtn:hover {
+    background-color: #ff5722;
+}
+
+/* Daily sales display */
+#dailySales {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #bf360c;
+}
+
+/* Change display */
+#change {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+    color: #2e7d32;
+}
+
+/* Admin page back button */
+button.backBtn {
+    background-color: #d84315;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button.backBtn:hover {
+    background-color: #bf360c;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+    #items {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #orderList li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #orderList button {
+        margin-top: 5px;
+        margin-left: 0;
+    }
 }
