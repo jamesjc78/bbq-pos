@@ -1,29 +1,37 @@
 body {
-    font-family: Arial, sans-serif;
-    padding: 15px;
-    background: #fff3e0;
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
-  .menu button {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0;
-    font-size: 18px;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .clear {
-    background: red;
-    color: white;
-    padding: 10px;
-    width: 100%;
-  }
-  
+  font-family: Arial, sans-serif;
+  padding: 15px;
+  background: #fff3e0;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.menu button {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0;
+  font-size: 18px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+button {
+  font-size: 16px;
+}
+
+a {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+}
